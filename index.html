@@ -1,0 +1,1520 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Armen&Ani</title>
+<meta name="description" content="Մեծ ուրախությամբ հրավիրում ենք Ձեզ մեր հարսանիքին՝ 2026 թվականի սեպտեմբերի 12-ին։ Երևան, «Օլիվա» այգի։">
+<meta property="og:title" content="Armen & Ani — Հարսանիքի հրավեր">
+<meta property="og:description" content="12.09.2026 · Երևան">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Italianno&family=Lovers+Quarrel&family=Noto+Sans+Armenian:wght@100..900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & TOKENS
+   ═══════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #ffffff;
+  --bg-cream:  #f8f6ee;
+  --bg-cream-2:#f0ebdd;
+
+  --text:      #333d29;
+  --text-mut:  #656d4a;
+  --accent:    #936639;
+  --accent-2:  #582f0e;
+
+  --line:        #ebe4d0;
+  --line-strong: #d9d0b8;
+
+  --c1: #333d29; --c2: #414833; --c3: #656d4a;
+  --c4: #a4ac86; --c5: #c2c5aa; --c6: #b6ad90;
+  --c7: #936639; --c8: #7f4f24; --c9: #582f0e;
+
+  --r:    14px;
+  --r-lg: 22px;
+
+  --ease:     cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --pad: clamp(20px, 5vw, 56px);
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: 'Noto Sans Armenian', system-ui, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+body:not(.opened) { overflow: hidden; height: 100vh; }
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+::selection { background: var(--c5); color: var(--c1); }
+
+.container {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+section { position: relative; }
+
+/* ═══════════════════════════════════════════════
+   CURTAIN SCREEN
+   ═══════════════════════════════════════════════ */
+.curtain-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  overflow: hidden;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  z-index: 2;
+  background:
+    repeating-linear-gradient(90deg,
+      rgba(0,0,0,0.22) 0px,
+      rgba(0,0,0,0.05) 14px,
+      rgba(255,255,255,0.05) 28px,
+      rgba(0,0,0,0.05) 42px,
+      rgba(0,0,0,0.22) 56px),
+    linear-gradient(180deg, #6d3d16 0%, #582f0e 55%, #3d1f06 100%);
+  box-shadow: inset 0 0 120px rgba(0,0,0,0.35);
+  transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+.curtain--left  { left: 0; }
+.curtain--right { right: 0; }
+
+.curtain::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent 5%, rgba(200,160,90,0.55) 50%, transparent 95%);
+}
+.curtain--left::after  { right: 0; }
+.curtain--right::after { left: 0; }
+
+.curtain-screen.opening .curtain--left  { transform: translateX(-101%); }
+.curtain-screen.opening .curtain--right { transform: translateX(101%); }
+
+.curtain-center {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  text-align: center;
+  padding: 24px;
+  transition: opacity 0.45s var(--ease), transform 0.6s var(--ease);
+  pointer-events: none;
+}
+.curtain-screen.opening .curtain-center {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.curtain-medallion {
+  width: clamp(84px, 22vw, 108px);
+  height: clamp(84px, 22vw, 108px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Italianno', cursive;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  color: #faf7ec;
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.14), rgba(255,255,255,0) 60%);
+  border: 1px solid rgba(250,247,236,0.45);
+  box-shadow: 0 0 0 10px rgba(250,247,236,0.04);
+  position: relative;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+}
+.curtain-medallion::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  border: 1px dashed rgba(250,247,236,0.3);
+}
+
+.curtain-names {
+  font-family: 'Italianno', cursive;
+  font-size: clamp(2.4rem, 6.5vw, 3.8rem);
+  line-height: 0.95;
+  color: #faf7ec;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.curtain-names em {
+  font-family: 'Lovers Quarrel', cursive;
+  font-style: normal;
+  font-size: 0.68em;
+  color: #d9c193;
+  vertical-align: middle;
+  margin: 0 4px;
+}
+
+.curtain-hint {
+  font-size: 0.66rem;
+  letter-spacing: 0.36em;
+  color: rgba(250,247,236,0.6);
+  text-transform: uppercase;
+}
+
+.open-btn {
+  font-size: 0.86rem;
+  letter-spacing: 0.16em;
+  color: #582f0e;
+  background: #faf7ec;
+  padding: 16px 38px;
+  border-radius: 100px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+  transition: transform 0.5s var(--ease), background 0.4s var(--ease), color 0.4s var(--ease), box-shadow 0.5s var(--ease);
+  pointer-events: auto;
+}
+.open-btn:hover {
+  transform: translateY(-2px);
+  background: #3d1f06;
+  color: #faf7ec;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+}
+
+.curtain-screen.done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.7s var(--ease), visibility 0.7s var(--ease);
+}
+
+/* ═══════════════════════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════════════════════ */
+.progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--accent);
+  z-index: 1100;
+  transition: width 0.08s linear;
+}
+
+/* ═══════════════════════════════════════════════
+   SITE
+   ═══════════════════════════════════════════════ */
+.site { opacity: 0; transition: opacity 1.2s var(--ease); }
+body.opened .site { opacity: 1; }
+
+/* ═══════════════════════════════════════════════
+   HERO — asymmetric editorial
+   ═══════════════════════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 4vw, 48px) var(--pad);
+  position: relative;
+  overflow: hidden;
+}
+.hero__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+.hero__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: var(--text-mut);
+  text-transform: uppercase;
+}
+.hero__num {
+  font-family: 'Italianno', cursive;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--accent);
+  line-height: 1;
+}
+
+.hero__center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 6vw, 72px) 0;
+}
+.hero__names {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 1.2vw, 16px);
+  opacity: 0;
+}
+body.opened .hero__names { animation: fadeUp 1.4s 0.4s var(--ease-out) forwards; }
+
+.hero__name {
+  font-family: 'Italianno', cursive;
+  font-weight: 400;
+  font-size: clamp(5rem, 17vw, 15rem);
+  line-height: 0.78;
+  color: var(--text);
+  display: flex;
+  align-items: baseline;
+  gap: clamp(12px, 2vw, 28px);
+  flex-wrap: wrap;
+}
+.hero__name--1 { align-self: flex-start; }
+.hero__name--2 { align-self: flex-end; }
+.hero__name-hy {
+  font-family: 'Noto Sans Armenian', sans-serif;
+  font-weight: 400;
+  font-size: 0.16em;
+  letter-spacing: 0.35em;
+  color: var(--accent);
+  line-height: 1;
+}
+.hero__amp {
+  font-family: 'Lovers Quarrel', cursive;
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  line-height: 1;
+  color: var(--accent);
+  align-self: center;
+  margin-left: auto;
+  margin-right: 12%;
+  opacity: 0;
+}
+body.opened .hero__amp { animation: fadeUp 1.2s 0.7s var(--ease-out) forwards; }
+
+.hero__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  opacity: 0;
+}
+body.opened .hero__bottom { animation: fadeUp 1s 1.2s var(--ease-out) forwards; }
+
+.hero__meta {
+  display: flex;
+  gap: clamp(24px, 5vw, 64px);
+  flex-wrap: wrap;
+}
+.hero__meta-block { display: flex; flex-direction: column; gap: 4px; }
+.hero__meta-label {
+  font-size: 0.64rem;
+  letter-spacing: 0.4em;
+  color: var(--text-mut);
+  text-transform: uppercase;
+}
+.hero__meta-value {
+  font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  color: var(--text);
+  letter-spacing: 0.06em;
+}
+.hero__scroll {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.68rem;
+  letter-spacing: 0.32em;
+  color: var(--text-mut);
+  text-transform: uppercase;
+}
+.hero__scroll-line {
+  width: 40px;
+  height: 1px;
+  background: var(--text-mut);
+  position: relative;
+  overflow: hidden;
+}
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: translateX(-100%);
+  animation: scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════════
+   MARQUEE
+   ═══════════════════════════════════════════════ */
+.marquee {
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-cream);
+  padding: clamp(16px, 2.5vw, 28px) 0;
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  gap: 40px;
+  animation: marquee 38s linear infinite;
+}
+.marquee__item {
+  font-family: 'Italianno', cursive;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  white-space: nowrap;
+}
+.marquee__item::after {
+  content: '✦';
+  font-family: 'Noto Sans Armenian', sans-serif;
+  font-size: 0.32em;
+  color: var(--accent);
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════════════
+   SECTION HEAD — editorial numbered
+   ═══════════════════════════════════════════════ */
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: clamp(40px, 6vw, 72px);
+}
+.section-head__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.section-head__num {
+  font-family: 'Italianno', cursive;
+  font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+  color: var(--accent);
+  line-height: 1;
+}
+.section-head__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.4em;
+  color: var(--text-mut);
+  text-transform: uppercase;
+}
+.section-head__rule {
+  height: 1px;
+  background: var(--line);
+  border: 0;
+}
+.section-head__title {
+  font-family: 'Noto Sans Armenian', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 4.2vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-top: 8px;
+  max-width: 720px;
+}
+
+/* ═══════════════════════════════════════════════
+   REVEAL
+   ═══════════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 1.1s var(--ease-out), transform 1.1s var(--ease-out);
+}
+.reveal.in-view { opacity: 1; transform: translateY(0); }
+.stagger > .reveal:nth-child(1) { transition-delay: 0.06s; }
+.stagger > .reveal:nth-child(2) { transition-delay: 0.16s; }
+.stagger > .reveal:nth-child(3) { transition-delay: 0.26s; }
+.stagger > .reveal:nth-child(4) { transition-delay: 0.36s; }
+.stagger > .reveal:nth-child(5) { transition-delay: 0.46s; }
+
+/* ═══════════════════════════════════════════════
+   INTRO (photo + text)
+   ═══════════════════════════════════════════════ */
+.intro { padding: clamp(64px, 10vw, 140px) 0; }
+
+.intro__content {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) 2fr;
+  gap: clamp(28px, 5vw, 80px);
+  align-items: center;
+}
+
+.intro__photo {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: var(--bg-cream);
+  box-shadow: 0 24px 60px rgba(51,61,41,0.12);
+}
+.intro__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease-out);
+}
+.intro__photo:hover img { transform: scale(1.04); }
+
+.intro__lead {
+  font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+  line-height: 1.45;
+  color: var(--text);
+  margin-bottom: clamp(20px, 3vw, 32px);
+  letter-spacing: -0.01em;
+}
+.intro__body {
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  line-height: 1.9;
+  color: var(--text-mut);
+  max-width: 60ch;
+}
+.intro__signature {
+  font-family: 'Italianno', cursive;
+  font-size: clamp(2rem, 3.5vw, 2.6rem);
+  line-height: 1;
+  color: var(--accent);
+  margin-top: clamp(24px, 3vw, 36px);
+}
+
+/* ═══════════════════════════════════════════════
+   COLLAGE — bento
+   ═══════════════════════════════════════════════ */
+.collage-section { padding: clamp(40px, 6vw, 80px) 0 clamp(64px, 10vw, 140px); }
+
+.collage {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 1fr;
+  grid-template-rows: 260px 260px 180px;
+  gap: 14px;
+}
+.collage__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r);
+  background: var(--bg-cream);
+}
+.collage__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease-out);
+}
+.collage__item:hover img { transform: scale(1.06); }
+.collage__item--1 { grid-column: 1;    grid-row: 1 / 3; }
+.collage__item--2 { grid-column: 2;    grid-row: 1; }
+.collage__item--3 { grid-column: 2;    grid-row: 2; }
+.collage__item--4 { grid-column: 3;    grid-row: 1 / 3; }
+.collage__item--5 { grid-column: 1/4;  grid-row: 3; }
+
+.collage__cap {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  color: rgba(255,255,255,0.92);
+  text-transform: uppercase;
+  background: rgba(51,61,41,0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 12px;
+  border-radius: 100px;
+}
+
+/* ═══════════════════════════════════════════════
+   LOCATION
+   ═══════════════════════════════════════════════ */
+.location { padding: clamp(64px, 10vw, 140px) 0; background: var(--bg-cream); }
+
+.location__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(32px, 6vw, 80px);
+  align-items: stretch;
+}
+.location__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 32px);
+}
+.location__name {
+  font-family: 'Noto Sans Armenian', sans-serif;
+  font-weight: 300;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.location__addr {
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  color: var(--text-mut);
+  letter-spacing: 0.02em;
+}
+.location__hint {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--text-mut);
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+  max-width: 44ch;
+}
+
+.btn-map {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  color: #faf7ec;
+  background: var(--text);
+  padding: 15px 30px;
+  border-radius: 100px;
+  align-self: flex-start;
+  transition: transform 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  box-shadow: 0 10px 24px rgba(51,61,41,0.18);
+}
+.btn-map svg { width: 16px; height: 16px; transition: transform 0.4s var(--ease); }
+.btn-map:hover {
+  transform: translateY(-2px);
+  background: var(--accent-2);
+  box-shadow: 0 16px 34px rgba(88,47,14,0.28);
+}
+.btn-map:hover svg { transform: translateX(3px); }
+
+.location__map {
+  position: relative;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--bg-cream);
+  min-height: 380px;
+  box-shadow: 0 18px 50px rgba(51,61,41,0.10);
+}
+.location__map iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ═══════════════════════════════════════════════
+   TIMELINE
+   ═══════════════════════════════════════════════ */
+.timeline-section { padding: clamp(64px, 10vw, 140px) 0; }
+
+.timeline {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--line-strong) 8%, var(--line-strong) 92%, transparent);
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top;
+  transition: transform 2.4s var(--ease-out);
+}
+.timeline.in-view::before { transform: translateX(-50%) scaleY(1); }
+
+.tl-item {
+  position: relative;
+  width: 50%;
+  padding: 18px 56px;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.timeline.in-view .tl-item { opacity: 1; transform: translateY(0); }
+.timeline.in-view .tl-item:nth-child(1) { transition-delay: 0.15s; }
+.timeline.in-view .tl-item:nth-child(2) { transition-delay: 0.55s; }
+.timeline.in-view .tl-item:nth-child(3) { transition-delay: 0.95s; }
+.timeline.in-view .tl-item:nth-child(4) { transition-delay: 1.35s; }
+
+.tl-item:nth-child(odd) { text-align: right; }
+.tl-item:nth-child(even) { margin-left: 50%; text-align: left; }
+
+.tl-dot {
+  position: absolute;
+  top: 30px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--accent), 0 2px 8px rgba(147,102,57,0.28);
+  z-index: 2;
+}
+.tl-item:nth-child(odd) .tl-dot { right: -8px; }
+.tl-item:nth-child(even) .tl-dot { left: -8px; }
+
+.tl-time {
+  font-family: 'Italianno', cursive;
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.tl-title {
+  font-family: 'Noto Sans Armenian', sans-serif;
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--text);
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.tl-desc {
+  font-size: 0.88rem;
+  color: var(--text-mut);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════
+   DETAILS — bento grid
+   ═══════════════════════════════════════════════ */
+.details { padding: clamp(64px, 10vw, 140px) 0; }
+
+.details__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: minmax(180px, auto);
+  gap: 14px;
+}
+
+.detail {
+  background: var(--bg-cream);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: clamp(24px, 3.2vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease), background 0.5s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+.detail:hover {
+  transform: translateY(-4px);
+  border-color: var(--line-strong);
+  background: #ffffff;
+}
+
+.detail--lg { grid-column: span 4; grid-row: span 2; }
+.detail--sm { grid-column: span 2; }
+.detail--md { grid-column: span 3; }
+
+.detail__num {
+  font-family: 'Italianno', cursive;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  color: var(--accent);
+  line-height: 1;
+  opacity: 0.75;
+}
+.detail__icon {
+  width: 42px; height: 42px;
+  color: var(--accent);
+  margin-bottom: auto;
+}
+.detail__icon svg { width: 100%; height: 100%; }
+.detail__title {
+  font-family: 'Noto Sans Armenian', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.02rem, 1.5vw, 1.18rem);
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+.detail__desc {
+  font-size: 0.9rem;
+  color: var(--text-mut);
+  line-height: 1.7;
+  max-width: 40ch;
+}
+.detail--lg .detail__title { font-size: clamp(1.4rem, 2.4vw, 1.9rem); font-weight: 400; }
+
+/* ═══════════════════════════════════════════════
+   DRESS CODE
+   ═══════════════════════════════════════════════ */
+.dresscode { padding: clamp(64px, 10vw, 140px) 0; background: var(--bg-cream); }
+
+.dresscode__body { display: block; }
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: clamp(14px, 2.4vw, 26px);
+  max-width: 980px;
+  margin: 0 auto;
+}
+.swatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.swatch__circle {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 8px 20px rgba(51,61,41,0.14), inset 0 -4px 12px rgba(0,0,0,0.12);
+  transition: transform 0.5s var(--ease);
+  position: relative;
+}
+.swatch:hover .swatch__circle { transform: scale(1.06); }
+
+/* ═══════════════════════════════════════════════
+   COUNTDOWN
+   ═══════════════════════════════════════════════ */
+.countdown { padding: clamp(64px, 10vw, 140px) 0; }
+
+.cd {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.cd__item {
+  padding: clamp(28px, 5vw, 56px) clamp(8px, 2vw, 24px);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+}
+.cd__item:last-child { border-right: none; }
+
+.cd__num {
+  font-family: 'Italianno', cursive;
+  font-weight: 400;
+  font-size: clamp(3.6rem, 11vw, 8.4rem);
+  line-height: 0.9;
+  color: var(--accent-2);
+  will-change: transform;
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+.cd__num.pulse { animation: pulseNum 0.45s var(--ease); }
+@keyframes pulseNum {
+  50% { transform: scale(1.08); color: var(--accent); }
+}
+
+.cd__label {
+  font-size: 0.66rem;
+  letter-spacing: 0.4em;
+  color: var(--text-mut);
+  text-transform: uppercase;
+  padding-left: 0.4em;
+}
+
+/* ═══════════════════════════════════════════════
+   FOOTER — компактный
+   ═══════════════════════════════════════════════ */
+.footer {
+  padding: clamp(36px, 5vw, 56px) var(--pad) clamp(24px, 3vw, 32px);
+  background: var(--text);
+  color: var(--bg-cream);
+  position: relative;
+  overflow: hidden;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 100%, rgba(147,102,57,0.16), transparent 50%),
+    radial-gradient(circle at 80% 0%, rgba(194,197,170,0.06), transparent 50%);
+  pointer-events: none;
+}
+.footer__inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  position: relative;
+}
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-bottom: clamp(16px, 2.5vw, 24px);
+  border-bottom: 1px solid rgba(194,197,170,0.15);
+}
+.footer__names {
+  font-family: 'Italianno', cursive;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 0.9;
+  color: var(--bg-cream);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.footer__names em {
+  font-family: 'Lovers Quarrel', cursive;
+  font-style: normal;
+  font-size: 0.55em;
+  color: var(--c5);
+  transform: translateY(0.15em);
+}
+.footer__date {
+  font-size: clamp(0.72rem, 1vw, 0.82rem);
+  letter-spacing: 0.32em;
+  color: var(--c5);
+  padding-left: 0.32em;
+}
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: clamp(14px, 2vw, 20px);
+  font-size: 0.64rem;
+  letter-spacing: 0.26em;
+  color: var(--c5);
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+.footer__heart {
+  width: 16px; height: 16px;
+  color: var(--accent);
+  animation: beat 2.2s ease-in-out infinite;
+}
+@keyframes beat {
+  0%, 100% { transform: scale(1); }
+  15%, 45% { transform: scale(1.18); }
+  30%, 60% { transform: scale(1); }
+}
+.footer__signature em {
+  font-family: 'Italianno', cursive;
+  font-style: normal;
+  font-size: 1.6em;
+  color: var(--c4);
+  vertical-align: middle;
+  margin: 0 3px;
+}
+.footer__brand {
+  font-weight: 600;
+  color: var(--color-text, var(--bg-cream));
+  letter-spacing: 0.12em;
+  text-transform: none;
+}
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .collage {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 260px 200px 200px;
+  }
+  .collage__item--1 { grid-column: 1;     grid-row: 1 / 3; }
+  .collage__item--2 { grid-column: 2;     grid-row: 1; }
+  .collage__item--3 { grid-column: 2;     grid-row: 2; }
+  .collage__item--4 { grid-column: 1 / 3; grid-row: 3; }
+  .collage__item--5 { display: none; }
+}
+
+@media (max-width: 860px) {
+  .intro__content,
+  .location__grid {
+    grid-template-columns: 1fr;
+  }
+  .intro__photo { max-width: 400px; margin: 0 auto; }
+  .location__map { min-height: 300px; }
+
+  .details__grid { grid-template-columns: repeat(2, 1fr); }
+  .detail--lg, .detail--md { grid-column: span 2; grid-row: auto; }
+  .detail--sm { grid-column: span 1; }
+
+  /* Timeline -> mobile */
+  .timeline::before { left: 22px; transform: translateX(0) scaleY(0); }
+  .timeline.in-view::before { transform: translateX(0) scaleY(1); }
+  .tl-item,
+  .tl-item:nth-child(even) {
+    width: 100%;
+    margin-left: 0;
+    padding: 16px 8px 16px 56px;
+    text-align: left !important;
+  }
+  .tl-item .tl-dot,
+  .tl-item:nth-child(odd) .tl-dot,
+  .tl-item:nth-child(even) .tl-dot {
+    left: 14px;
+    right: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__names { gap: 8px; }
+  .hero__name { font-size: clamp(4.4rem, 19vw, 7rem); }
+  .hero__name--1 { align-self: flex-start; }
+  .hero__name--2 { align-self: flex-end; padding-right: 8px; }
+  .hero__amp { font-size: 2.4rem; margin-right: 8px; }
+  .hero__meta { gap: 20px; }
+  .hero__bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
+
+  .marquee__track { gap: 24px; animation-duration: 28s; }
+  .marquee__item { font-size: 1.8rem; gap: 24px; }
+
+  .collage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .collage__item { grid-column: 1 !important; grid-row: auto !important; aspect-ratio: 4/5; }
+  .collage__item--5 { display: block; }
+
+  .swatches { grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+  .cd { grid-template-columns: repeat(2, 1fr); }
+  .cd__item { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .cd__item:nth-child(2n) { border-right: none; }
+  .cd__item:nth-child(n+3) { border-bottom: none; }
+  .cd__num { font-size: clamp(3rem, 14vw, 5rem); }
+
+  .footer__top { flex-direction: column; }
+  .footer__bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
+}
+
+@media (max-width: 400px) {
+  .hero__name-hy { letter-spacing: 0.28em; font-size: 0.14em; }
+  .swatches { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ═══════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  body.opened .hero__names,
+  body.opened .hero__amp,
+  body.opened .hero__bottom { animation: none !important; opacity: 1 !important; }
+  .marquee__track { animation: none !important; }
+  .timeline::before { transform: translateX(-50%) scaleY(1) !important; }
+  .timeline.in-view .tl-item { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ CURTAIN ═══════ -->
+<div class="curtain-screen" id="curtainScreen" role="button" tabindex="0" aria-label="Բացել հրավերը">
+  <div class="curtain curtain--left"></div>
+  <div class="curtain curtain--right"></div>
+
+  <div class="curtain-center">
+    <div class="curtain-medallion">A &amp; A</div>
+    <p class="curtain-names">Armen <em>&amp;</em> Ani</p>
+    <button class="open-btn" id="openBtn" type="button">Բացել հրավերը</button>
+    <p class="curtain-hint">Սեղմե՛ք բացելու համար</p>
+  </div>
+</div>
+
+<!-- ═══════ PROGRESS ═══════ -->
+<div class="progress" id="progress"></div>
+
+<!-- ═══════ SITE ═══════ -->
+<main class="site" id="site">
+
+  <!-- ───── HERO ───── -->
+  <section class="hero" id="hero">
+    <div class="hero__top">
+      <span class="hero__label">Հրավեր · 2026</span>
+      <span class="hero__num">№ 01</span>
+    </div>
+
+    <div class="hero__center">
+      <h1 class="hero__names">
+        <span class="hero__name hero__name--1">
+          Armen
+          <span class="hero__name-hy">ԱՐՄԵՆ</span>
+        </span>
+        <span class="hero__amp">&amp;</span>
+        <span class="hero__name hero__name--2">
+          <span class="hero__name-hy">ԱՆԻ</span>
+          Ani
+        </span>
+      </h1>
+    </div>
+
+    <div class="hero__bottom">
+      <div class="hero__meta">
+        <div class="hero__meta-block">
+          <span class="hero__meta-label">ՕՐ</span>
+          <span class="hero__meta-value">12 · 09 · 2026</span>
+        </div>
+        <div class="hero__meta-block">
+          <span class="hero__meta-label">ՎԱՅՐ</span>
+          <span class="hero__meta-value">Երևան</span>
+        </div>
+        <div class="hero__meta-block">
+          <span class="hero__meta-label">ԺԱՄ</span>
+          <span class="hero__meta-value">17:00</span>
+        </div>
+      </div>
+      <div class="hero__scroll">
+        <span>Ոլորել</span>
+        <span class="hero__scroll-line"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── MARQUEE ───── -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span class="marquee__item">Armen</span>
+      <span class="marquee__item">Ani</span>
+      <span class="marquee__item">12 · 09 · 2026</span>
+      <span class="marquee__item">Երևան</span>
+      <span class="marquee__item">Armen</span>
+      <span class="marquee__item">Ani</span>
+      <span class="marquee__item">12 · 09 · 2026</span>
+      <span class="marquee__item">Երևան</span>
+      <span class="marquee__item">Armen</span>
+      <span class="marquee__item">Ani</span>
+      <span class="marquee__item">12 · 09 · 2026</span>
+      <span class="marquee__item">Երևան</span>
+    </div>
+  </div>
+
+  <!-- ───── INTRO (photo + text) ───── -->
+  <section class="intro" id="intro">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-head__row">
+          <span class="section-head__num">01</span>
+          <span class="section-head__label">ՀՐԱՎԵՐ</span>
+        </div>
+        <hr class="section-head__rule">
+      </div>
+
+      <div class="intro__content">
+        <div class="intro__photo reveal">
+          <img src="https://i.pinimg.com/736x/96/cc/ac/96ccacc22b5b866dfc2e5ce9ccc70921.jpg" alt="Armen & Ani" loading="lazy">
+        </div>
+
+        <div class="reveal">
+          <p class="intro__lead">Սիրելի՛ հարազատներ և ընկերներ, մեծ ուրախությամբ հրավիրում ենք Ձեզ կիսելու մեզ հետ մեր կյանքի ամենակարևոր օրը։</p>
+          <p class="intro__body">Ձեր ներկայությունը կդարձնի մեր տոնը առավել ջերմ, լուսավոր ու անմոռանալի։ Սիրով սպասում ենք Ձեզ՝ միասին նշելու մեր սերը։</p>
+          <p class="intro__signature">— Armen &amp; Ani</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── COLLAGE ───── -->
+  <section class="collage-section" id="collage">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-head__row">
+          <span class="section-head__num">02</span>
+          <span class="section-head__label">ՊԱՀԵՐ</span>
+        </div>
+        <hr class="section-head__rule">
+        <h2 class="section-head__title">Մեր պատմության մի քանի կադր</h2>
+      </div>
+
+      <div class="collage reveal">
+        <div class="collage__item collage__item--1">
+          <img src="https://i.pinimg.com/736x/10/3b/0e/103b0e7005f4c2659cae52a9d32f7898.jpg" alt="Մենք միասին" loading="lazy">
+          <span class="collage__cap">01</span>
+        </div>
+        <div class="collage__item collage__item--2">
+          <img src="https://i.pinimg.com/736x/10/dd/2a/10dd2adc88614502977b44281ce80da9.jpg" alt="Մեր պահը" loading="lazy">
+          <span class="collage__cap">02</span>
+        </div>
+        <div class="collage__item collage__item--3">
+          <img src="https://i.pinimg.com/736x/c7/ee/ff/c7eeff3f955651debb6d6a72418f4a35.jpg" alt="Ժպիտ" loading="lazy">
+          <span class="collage__cap">03</span>
+        </div>
+        <div class="collage__item collage__item--4">
+          <img src="https://i.pinimg.com/736x/c6/44/b4/c644b49d37e6cc139c400950fdaf55e8.jpg" alt="Սեր" loading="lazy">
+          <span class="collage__cap">04</span>
+        </div>
+        <div class="collage__item collage__item--5">
+          <img src="https://i.pinimg.com/736x/f3/0c/a9/f30ca942867409796468815107831970.jpg" alt="Միասին" loading="lazy">
+          <span class="collage__cap">05</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── LOCATION ───── -->
+  <section class="location" id="location">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-head__row">
+          <span class="section-head__num">03</span>
+          <span class="section-head__label">ՎԱՅՐ</span>
+        </div>
+        <hr class="section-head__rule">
+      </div>
+
+      <div class="location__grid">
+        <div class="location__info reveal">
+          <h2 class="location__name">«Օլիվա» այգի</h2>
+          <p class="location__addr">Երևան, Արամի փողոց 1</p>
+
+          <a class="btn-map" href="https://www.google.com/maps/search/?api=1&query=40.1776,44.5126" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"/>
+              <line x1="9" y1="3" x2="9" y2="18"/>
+              <line x1="15" y1="6" x2="15" y2="21"/>
+            </svg>
+            Դիտել քարտեզի վրա
+          </a>
+
+          <p class="location__hint">Արարողությունը տեղի կունենա բաց երկնքի տակ՝ այգու սրտում։ Խնդրում ենք ժամանել 15 րոպե շուտ։</p>
+        </div>
+
+        <div class="location__map reveal">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3048.305797142664!2d44.509955774932145!3d40.18000757147893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x406abcfb9b60c7f1%3A0x742399af2c0ca58c!2s1%20Arami%20poghots%2C%20Yerevan!5e0!3m2!1sru!2sam!4v1793698030535!5m2!1sru!2sam"
+            width="600" height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            title="«Օլիվա» այգի — քարտեզ"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── TIMELINE ───── -->
+  <section class="timeline-section" id="timeline">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-head__row">
+          <span class="section-head__num">04</span>
+          <span class="section-head__label">ԾՐԱԳԻՐ</span>
+        </div>
+        <hr class="section-head__rule">
+        <h2 class="section-head__title">Օրվա ընթացքը</h2>
+      </div>
+
+      <div class="timeline" id="timelineEl">
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-time">16:00</div>
+          <h3 class="tl-title">Հյուրերի հավաքում</h3>
+          <p class="tl-desc">Ջերմ ընդունելություն և ողջույնի խմիչք այգու տաղավարում</p>
+        </div>
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-time">17:00</div>
+          <h3 class="tl-title">Պսակադրություն</h3>
+          <p class="tl-desc">Սուրբ արարողությունը բաց երկնքի տակ՝ մերձավորների շրջապատում</p>
+        </div>
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-time">18:30</div>
+          <h3 class="tl-title">Ֆոտոսեսիա</h3>
+          <p class="tl-desc">Անմոռանալի պահեր և համատեղ լուսանկարներ ոսկեգույն լույսի ներքո</p>
+        </div>
+        <div class="tl-item">
+          <span class="tl-dot"></span>
+          <div class="tl-time">20:00</div>
+          <h3 class="tl-title">Հարսանյաց խնջույք</h3>
+          <p class="tl-desc">Ընթրիք, կենդանի երաժշտություն և պարեր մինչև ուշ գիշեր</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── DETAILS ───── -->
+  <section class="details" id="details">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-head__row">
+          <span class="section-head__num">05</span>
+          <span class="section-head__label">ՄԱՆՐԱՄԱՍՆԵՐ</span>
+        </div>
+        <hr class="section-head__rule">
+        <h2 class="section-head__title">Այն ամենը, ինչ պետք է իմանաք</h2>
+      </div>
+
+      <div class="details__grid stagger">
+        <article class="detail detail--lg reveal">
+          <span class="detail__num">01</span>
+          <div class="detail__icon">
+          </div>
+          <h3 class="detail__title">Արարողություն բաց երկնքի տակ</h3>
+          <p class="detail__desc">Մեր հարսանիքը տեղի կունենա «Օլիվա» այգում՝ շրջապատված բնությամբ և ամենամերձավոր մարդկանցով։ Խնդրում ենք հարմարավետ կոշիկ՝ խոտի վրա քայլելու համար։</p>
+        </article>
+
+        <article class="detail detail--sm reveal">
+          <span class="detail__num">02</span>
+          <div class="detail__icon">
+          </div>
+          <h3 class="detail__title">Միջավայր</h3>
+          <p class="detail__desc">Բնական լույս, օլիվային ծառեր և ջերմ մթնոլորտ</p>
+        </article>
+
+        <article class="detail detail--sm reveal">
+          <span class="detail__num">03</span>
+          <div class="detail__icon">
+          </div>
+          <h3 class="detail__title">Երաժշտություն</h3>
+          <p class="detail__desc">Կենդանի կատարում և DJ մինչև ուշ գիշեր</p>
+        </article>
+
+        <article class="detail detail--md reveal">
+          <span class="detail__num">04</span>
+          <div class="detail__icon">
+          </div>
+          <h3 class="detail__title">Խորհուրդ հյուրերին</h3>
+          <p class="detail__desc">Խնդրում ենք ժամանել 15 րոպե շուտ՝ վայելելու ողջույնի խմիչքը և հանդիպելու մյուս հյուրերին։</p>
+        </article>
+
+        <article class="detail detail--md reveal">
+          <span class="detail__num">05</span>
+          <div class="detail__icon">
+          </div>
+          <h3 class="detail__title">Կարևոր ամսաթիվ</h3>
+          <p class="detail__desc">12.09.2026 — խնդրում ենք նշել օրացույցում և պատասխանել հրավերին մինչև օգոստոսի 1-ը։</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── DRESS CODE ───── -->
+  <section class="dresscode" id="dresscode">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-head__row">
+          <span class="section-head__num">06</span>
+          <span class="section-head__label">ԴՐԵՍ ԿՈԴ</span>
+        </div>
+        <hr class="section-head__rule">
+        <h2 class="section-head__title">Մեր գունային երանգները</h2>
+      </div>
+
+      <div class="dresscode__body">
+        <div class="swatches reveal">
+          <div class="swatch"><span class="swatch__circle" style="background:#333d29"></span></div>
+          <div class="swatch"><span class="swatch__circle" style="background:#656d4a"></span></div>
+          <div class="swatch"><span class="swatch__circle" style="background:#a4ac86"></span></div>
+          <div class="swatch"><span class="swatch__circle" style="background:#c2c5aa"></span></div>
+          <div class="swatch"><span class="swatch__circle" style="background:#b6ad90"></span></div>
+          <div class="swatch"><span class="swatch__circle" style="background:#936639"></span></div>
+          <div class="swatch"><span class="swatch__circle" style="background:#7f4f24"></span></div>
+          <div class="swatch"><span class="swatch__circle" style="background:#582f0e"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── COUNTDOWN ───── -->
+  <section class="countdown" id="countdown">
+    <div class="container">
+      <div class="section-head reveal">
+        <div class="section-head__row">
+          <span class="section-head__num">07</span>
+          <span class="section-head__label">ՀԱՇՎԱՐԿ</span>
+        </div>
+        <hr class="section-head__rule">
+        <h2 class="section-head__title">Մինչև հարսանիքը</h2>
+      </div>
+
+      <div class="cd reveal">
+        <div class="cd__item">
+          <span class="cd__num" id="cd-days">00</span>
+          <span class="cd__label">ՕՐ</span>
+        </div>
+        <div class="cd__item">
+          <span class="cd__num" id="cd-hours">00</span>
+          <span class="cd__label">ԺԱՄ</span>
+        </div>
+        <div class="cd__item">
+          <span class="cd__num" id="cd-mins">00</span>
+          <span class="cd__label">ՐՈՊԵ</span>
+        </div>
+        <div class="cd__item">
+          <span class="cd__num" id="cd-secs">00</span>
+          <span class="cd__label">ՎԱՅՐԿՅԱՆ</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── FOOTER ───── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top reveal">
+        <p class="footer__names">Armen <em>&amp;</em> Ani</p>
+        <p class="footer__date">12 · 09 · 2026</p>
+      </div>
+
+      <div class="footer__bottom">
+        <span>Երևան · «Օլիվա» այգի</span>
+        <svg class="footer__heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span class="footer__signature">Made with <em>love</em></span>
+        <span class="footer__brand">knot.bo</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  const body = document.body;
+  const curtainScreen = document.getElementById('curtainScreen');
+  const openBtn = document.getElementById('openBtn');
+
+  let opened = false;
+
+  function openInvitation() {
+    if (opened) return;
+    opened = true;
+
+    /* сайт проявляется под шторками, шторки разъезжаются */
+    body.classList.add('opened');
+    curtainScreen.classList.add('opening');
+
+    setTimeout(() => {
+      curtainScreen.classList.add('done');
+      startRevealObserver();
+      updateCountdown();
+    }, 1700);
+
+    setTimeout(() => {
+      curtainScreen.style.display = 'none';
+    }, 2500);
+  }
+
+  curtainScreen.addEventListener('click', openInvitation);
+  openBtn.addEventListener('click', openInvitation);
+  curtainScreen.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openInvitation(); }
+  });
+
+  /* ── Reveal + Timeline observer ── */
+  function startRevealObserver() {
+    const els = document.querySelectorAll('.reveal');
+    const timelineEl = document.getElementById('timelineEl');
+
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('in-view'));
+      if (timelineEl) timelineEl.classList.add('in-view');
+      return;
+    }
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { en.target.classList.add('in-view'); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(el => obs.observe(el));
+
+    if (timelineEl) {
+      const tlObs = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            timelineEl.classList.add('in-view');
+            tlObs.unobserve(timelineEl);
+          }
+        });
+      }, { threshold: 0.15 });
+      tlObs.observe(timelineEl);
+    }
+  }
+
+  /* ── Countdown ── */
+  const WEDDING = new Date('2026-09-12T17:00:00').getTime();
+  const pad = n => (n < 10 ? '0' : '') + n;
+
+  function setNum(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.textContent !== val) {
+      el.textContent = val;
+      el.classList.remove('pulse');
+      void el.offsetWidth;
+      el.classList.add('pulse');
+    }
+  }
+  function updateCountdown() {
+    const diff = WEDDING - Date.now();
+    if (diff <= 0) {
+      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => setNum(id, '00'));
+      return;
+    }
+    setNum('cd-days',  pad(Math.floor(diff / 86400000)));
+    setNum('cd-hours', pad(Math.floor((diff % 86400000) / 3600000)));
+    setNum('cd-mins',  pad(Math.floor((diff % 3600000) / 60000)));
+    setNum('cd-secs',  pad(Math.floor((diff % 60000) / 1000)));
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ── Progress bar ── */
+  const progress = document.getElementById('progress');
+  let ticking = false;
+  addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - innerHeight;
+      const pct = max > 0 ? (scrollY / max) * 100 : 0;
+      progress.style.width = pct + '%';
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
